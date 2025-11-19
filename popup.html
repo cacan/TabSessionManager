@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tab Session Manager</title>
+  <style>
+    /* Base styling */
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 10px;
+      width: 900px; /* Increased width */
+      color: #333;
+      font-size: 0.9em;
+      overflow-x: hidden; /* Prevent horizontal scroll */
+    }
+    h3 {
+      text-align: center;
+      color: #2b2b2b;
+      margin: 0 0 10px;
+      font-size: 1.2em;
+    }
+    button {
+      background-color: #3a8ee6;
+      border: 1px solid #2c6fb7;
+      border-radius: 3px;
+      color: #fff;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 0.9em;
+      margin: 2px;
+      white-space: nowrap; /* Prevent button text from wrapping */
+    }
+    button:hover {
+      background-color: #3277c9;
+    }
+    button.delete {
+      background-color: #e64545;
+      border-color: #c0392b;
+    }
+    button.delete:hover {
+      background-color: #c0392b;
+    }
+    /* Button container styling */
+    #saveBtn, #importBtn {
+      width: auto;
+      display: inline-block;
+    }
+    /* Sessions container styling */
+    #sessions {
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      background-color: #fafafa;
+      border-radius: 4px;
+      padding: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    details.session {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      background-color: #fff;
+      padding: 4px;
+    }
+    summary.session-summary {
+      padding: 4px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin: 0;
+    }
+    summary.session-summary:hover {
+      background-color: #e0e0e0;
+    }
+    .session-header {
+      display: flex;
+      align-items: center;
+    }
+    .session-arrow {
+      margin-right: 4px;
+      font-size: 1.1em;
+    }
+    .session-title {
+      font-weight: bold;
+    }
+    .session-buttons {
+      display: inline-flex;
+      gap: 4px;
+      margin: 4px 0;
+    }
+    .session-content {
+      padding: 4px 8px 8px 8px;
+      margin-top: 4px;
+      border-top: 1px solid #eee;
+    }
+    table.session-details {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 4px;
+      font-size: 0.85em;
+    }
+    table.session-details th,
+    table.session-details td {
+      border: 1px solid #ddd;
+      padding: 3px 5px;
+      text-align: left;
+      white-space: nowrap; /* Prevent header and cell text wrapping */
+    }
+    table.session-details th {
+      background-color: #555; /* Darker header than button blue */
+      color: white;
+      font-weight: normal;
+    }
+    table.session-details tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    textarea {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 6px;
+      resize: vertical;
+      font-size: 0.85em;
+    }
+    hr {
+      margin: 10px 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h3>Tab Session Manager</h3>
+  <div style="text-align: center; margin-bottom: 8px;">
+    <button id="saveBtn">Save Current Session</button>
+  </div>
+  <div id="sessions"></div>
+  <hr>
+  <h4 style="font-size:1em; margin:6px 0;">Import Sessions</h4>
+  <textarea id="importTextarea" rows="3" placeholder="Paste exported JSON data here"></textarea>
+  <div style="text-align: center; margin-top: 6px;">
+    <button id="importBtn">Import Sessions</button>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
