@@ -46,6 +46,21 @@ function loadSessions() {
     if (details.hasAttribute("open")) {
       expandedSessionIds.push(details.getAttribute("data-session-id"));
     }
+  });
+
+  sessionsContainer.innerHTML = "";
+
+  chrome.storage.local.get({ savedSessions: [] }, function (result) {
+    const sessions = result.savedSessions;
+
+    // Sort sessions by id descending (newest first)
+    sessions.sort((a, b) => b.id - a.id);
+
+    if (sessions.length === 0) {
+      sessionsContainer.textContent = "No saved sessions.";
+      sessionsContainer.scrollTop = scrollPos;
+      return;
+    }
 
     sessions.forEach(session => {
       // Count windows and total tabs.
@@ -235,6 +250,20 @@ function loadSessions() {
     });
 
     sessionsContainer.scrollTop = scrollPos;
+
+    // Update status bar with stats.
+    chrome.storage.local.getBytesInUse(null, function (bytesInUse) {
+      const statusBar = document.getElementById("status-bar");
+      if (statusBar) {
+        const kb = (bytesInUse / 1024).toFixed(2);
+        const mb = (bytesInUse / (1024 * 1024)).toFixed(2);
+        let sizeText = `${kb} KB`;
+        if (bytesInUse > 1024 * 1024) {
+          sizeText = `${mb} MB`;
+        }
+        statusBar.textContent = `Saved Sessions: ${sessions.length} | Storage Used: ${sizeText}`;
+      }
+    });
   });
 }
 
