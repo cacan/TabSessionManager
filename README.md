@@ -42,7 +42,7 @@ Our intelligent retention policy ensures you have the data you need without the 
 
 1.  **Clone the Repository**
     ```bash
-    git clone https://github.com/yourusername/tab-session-manager.git
+    git clone https://github.com/cacan/TabSessionManager.git
     ```
 
 2.  **Open Chrome Extensions**
